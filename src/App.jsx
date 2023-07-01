@@ -3,9 +3,19 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Routes } from "./routes/Routes";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { loadCart } from "./redux-store/slice/CartSlice";
+import { loadBooks } from "./redux-store/slice/BookSlice";
+import { bookList } from "./data/BookList";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // dispatch(loadCart(JSON.parse(localStorage.getItem("cart")) || []));
+    dispatch(loadBooks(bookList));
+  }, []);
 
   return (
     <>

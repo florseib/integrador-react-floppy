@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   HeaderDiv,
   Menu,
@@ -7,10 +8,16 @@ import {
   MenuIcon,
   Link,
 } from "../StyledComponents/Components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Header() {
+  const cartItems = useSelector((state) => state.cart.cartItems);
+
   const [cartNumber, setCartNumber] = useState(0);
+
+  useEffect(() => {
+    setCartNumber(cartItems.length);
+  }, [cartItems]);
 
   return (
     <HeaderDiv>
