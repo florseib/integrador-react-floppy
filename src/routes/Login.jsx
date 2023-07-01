@@ -5,15 +5,25 @@ import {
   LoginForm,
 } from "../StyledComponents/AccountComponents";
 import { Input } from "../components/Input";
+import { useDispatch } from "react-redux";
+import { logIn } from "../redux-store/slice/UserSlice";
 
 export const Login = () => {
+  const dispatch = useDispatch();
+
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     onSubmit(values, { resetForm }) {
       console.log(values);
+      dispatch(
+        logIn({
+          email: values.email,
+          password: values.password,
+        })
+      );
       resetForm();
     },
   });
@@ -24,10 +34,10 @@ export const Login = () => {
       <Form>
         <Input
           handleChange={handleChange}
-          value={values.username}
-          label="Usuario"
+          value={values.email}
+          label="Mail"
           type="text"
-          name="username"
+          name="email"
         />
         <Input
           handleChange={handleChange}
@@ -37,7 +47,7 @@ export const Login = () => {
           name="password"
         />
         <AccountButton
-          onSubmit={(e) => {
+          onClick={(e) => {
             e.preventDefault();
             handleSubmit();
           }}

@@ -75,7 +75,8 @@ export const LinkContainer = styled.li`
   font-size: 1.2em;
 `;
 
-export const MenuContent = styled.div`
+export const MenuContent = styled.ul`
+  list-style-type: none;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -84,7 +85,7 @@ export const MenuContent = styled.div`
 `;
 
 export const AccountLinks = styled(MenuContent)`
-  width: 60%;
+  width: 40%;
   padding-right: 0px;
   font-size: 0.9em;
 `;

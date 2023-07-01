@@ -6,16 +6,26 @@ import {
   RegisterForm,
 } from "../StyledComponents/AccountComponents";
 import { Input } from "../components/Input";
+import { useDispatch } from "react-redux";
+import { createUser } from "../redux-store/slice/UserSlice";
 
 export const Register = () => {
-  const { values, handleChange } = useFormik({
+  const dispatch = useDispatch();
+  const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
       repeatpassword: "",
     },
     onSubmit(values, { resetForm }) {
       console.log(values);
+      dispatch(
+        createUser({
+          email: values.email,
+          password: values.password,
+          repeatPassword: values.repeatpassword,
+        })
+      );
       resetForm();
     },
   });
@@ -26,10 +36,10 @@ export const Register = () => {
       <Form>
         <Input
           handleChange={handleChange}
-          value={values.username}
-          label="Usuario"
+          value={values.email}
+          label="Mail"
           type="text"
-          name="username"
+          name="email"
         />
         <Input
           handleChange={handleChange}
@@ -42,15 +52,15 @@ export const Register = () => {
           handleChange={handleChange}
           value={values.repeatpassword}
           label="Repetir contraseña"
-          type="repeatpassword"
+          type="password"
           name="repeatpassword"
         />
-        <div class="save-info">
+        {/* <div class="save-info">
           <input type={"checkbox"} name={"rememberme"}></input>
           <label htmlFor={"rememberme"}>Guardar información de usuario</label>
-        </div>
+        </div> */}
         <AccountButton
-          onSubmit={(e) => {
+          onClick={(e) => {
             e.preventDefault();
             handleSubmit();
           }}
