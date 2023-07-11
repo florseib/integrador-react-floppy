@@ -1,5 +1,4 @@
 export const addUserToList = (state, newUser) => {
-  console.log("a");
   const existingUser = state.userList.find((x) => {
     return x.email === newUser.email;
   });
@@ -8,7 +7,7 @@ export const addUserToList = (state, newUser) => {
     return {
       ...state,
       userList: [
-        state.userList,
+        ...state.userList,
         { email: newUser.email, password: newUser.password },
       ],
       loggedUser: {
@@ -30,7 +29,6 @@ export const logUser = (userList, user) => {
     return x.email === user.email && x.password === user.password;
   });
 
-  console.log(existingUser);
   if (existingUser) return { email: user.email };
 
   return null;

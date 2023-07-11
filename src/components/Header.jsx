@@ -10,11 +10,16 @@ import {
 } from "../StyledComponents/Components";
 import { useEffect, useState } from "react";
 import { logOut } from "../redux-store/slice/UserSlice";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export function Header() {
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.user.loggedUser);
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const cartItems = useSelector((state) => state.cart.cartItems).filter(
+    (x) => x.email === loggedUser?.email
+  );
 
   const [cartNumber, setCartNumber] = useState(0);
 
@@ -51,9 +56,11 @@ export function Header() {
         <LinkContainer>
           <Link to="/store">TIENDA</Link>
         </LinkContainer>
-        <LinkContainer>
-          <Link to="/cart">CARRITO ({cartNumber})</Link>
-        </LinkContainer>
+        {loggedUser !== null && (
+          <LinkContainer>
+            <Link to="/cart">CARRITO ({cartNumber})</Link>
+          </LinkContainer>
+        )}
         {loggedUser !== null && (
           <LinkContainer>
             <Link>{loggedUser.email}</Link>
@@ -61,7 +68,14 @@ export function Header() {
         )}
         {loggedUser !== null && (
           <LinkContainer>
-            {/* <Link onClick={dispatch(logOut())}>LOG OUT</Link> */}
+            <Link
+              to="/"
+              onClick={() => {
+                dispatch(logOut());
+              }}
+            >
+              LOG OUT
+            </Link>
           </LinkContainer>
         )}
         {loggedUser === null && (
@@ -76,7 +90,7 @@ export function Header() {
         )}
       </AccountLinks>
       <MenuIcon>
-        <i className={"fa-solid fa-bars"}></i>
+        <FontAwesomeIcon icon={faBars} />
       </MenuIcon>
     </HeaderDiv>
   );

@@ -5,6 +5,7 @@ import {
 } from "../StyledComponents/CartComponents";
 import { CartBookCard } from "../components/CartBookCard";
 import styled from "styled-components";
+import { Navigate } from "react-router-dom";
 
 const CartDiv = styled.div`
   display: flex;
@@ -16,9 +17,14 @@ const CartDiv = styled.div`
 `;
 
 export const Cart = () => {
-  const cart = useSelector((state) => state.cart.cartItems);
-  console.log(cart);
-  return (
+  const loggedUser = useSelector((state) => state.user.loggedUser);
+  let cart = useSelector((state) => state.cart.cartItems).filter(
+    (x) => x.email == loggedUser.email
+  );
+  // cart.filter((x) => {
+  //   x.email == loggedUser.email;
+  // });
+  return loggedUser != null ? (
     <CartDiv>
       <h1>TU CARRITO</h1>
       <CartContainer>
@@ -38,5 +44,7 @@ export const Cart = () => {
         </BuyButtonContainer>
       )}
     </CartDiv>
+  ) : (
+    <Navigate to={"/"} />
   );
 };

@@ -7,12 +7,13 @@ export const AccountForm = styled.div`
   align-items: center;
   background-color: rgba(255, 145, 0);
   border-radius: 30px;
-  padding: 50px 30px;
+  padding: 30px 30px;
   box-sizing: border-box;
 `;
 
 export const LoginForm = styled(AccountForm)`
-  width: 25%;
+  width: 30%;
+  // padding: 50px 30px;
 
   form {
     width: 85%;
@@ -25,17 +26,17 @@ export const LoginForm = styled(AccountForm)`
     margin-top: 0px;
   }
 
-  @media (max-width: 1500px) {
-    width: 30%;
-  }
+  // @media (max-width: 1500px) {
+  //   width: 35%;
+  // }
 
   @media (max-width: 1200px) {
-    width: 35%;
-  }
-
-  @media (max-width: 1000px) {
     width: 40%;
   }
+
+  // @media (max-width: 1000px) {
+  //   width: 40%;
+  // }
 
   @media (max-width: 768px) {
     width: 90%;
@@ -86,4 +87,11 @@ export const Form = styled.form`
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+`;
+
+export const Error = styled.p`
+  font-size: 100%;
+  font-weight: bold;
+  color: #234099;
+  margin: 0 0 1rem;
 `;

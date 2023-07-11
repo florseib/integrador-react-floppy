@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ButtonContainer } from "../StyledComponents/BookCardComponents.jsx";
 import { BookInfo } from "../StyledComponents/BookCardComponents.jsx";
 import {
@@ -15,6 +15,7 @@ export const StoreBookCard = ({
   picture,
   id,
 }) => {
+  const loggedUser = useSelector((state) => state.user.loggedUser);
   const dispatch = useDispatch();
 
   return (
@@ -28,16 +29,28 @@ export const StoreBookCard = ({
         <p>Precio: ${price}</p>
         <p>Categoría: {category}</p>
       </BookInfo>
-      <ButtonContainer>
-        <button
-          value={id}
-          onClick={() =>
-            dispatch(addToCart({ name, author, price, category, picture, id }))
-          }
-        >
-          Agregar al carrito
-        </button>
-      </ButtonContainer>
+      {loggedUser && (
+        <ButtonContainer>
+          <button
+            value={id}
+            onClick={() =>
+              dispatch(
+                addToCart({
+                  name,
+                  author,
+                  price,
+                  category,
+                  picture,
+                  id,
+                  email: loggedUser.email,
+                })
+              )
+            }
+          >
+            Agregar al carrito
+          </button>
+        </ButtonContainer>
+      )}
     </BookCardDiv>
   );
 };

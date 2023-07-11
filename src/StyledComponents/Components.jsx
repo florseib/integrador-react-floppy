@@ -88,11 +88,19 @@ export const AccountLinks = styled(MenuContent)`
   width: 40%;
   padding-right: 0px;
   font-size: 0.9em;
+
+  @media (max-width: 450px) {
+    display: none;
+  }
 `;
 
 export const MenuIcon = styled(MenuContent)`
   display: none;
   font-size: 1.5rem;
+
+  @media (max-width: 450px) {
+    display: flex;
+  }
 `;
 
 export const Link = styled(NavLink)`

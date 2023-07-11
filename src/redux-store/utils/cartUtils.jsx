@@ -1,6 +1,6 @@
 export const addItemToCart = (cartItems, newItem) => {
   const existingProduct = cartItems.find((x) => {
-    return x.id === newItem.id;
+    return x.id === newItem.id && x.email === newItem.email;
   });
 
   if (existingProduct) {

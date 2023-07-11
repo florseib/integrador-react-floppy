@@ -7,13 +7,21 @@ const InputContainer = styled.div`
   flex-direction: column;
 `;
 
-export const Input = ({ label, type, name, value, handleChange }) => {
+export const Input = ({
+  label,
+  type,
+  name,
+  value,
+  handleChange,
+  handleBlur,
+}) => {
   return (
     <InputContainer>
       <label htmlFor={label}>{label}</label>
       <StyledInput
         value={value}
         onChange={handleChange}
+        onBlur={handleBlur}
         type={type}
         id={label}
         name={name}

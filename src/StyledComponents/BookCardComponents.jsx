@@ -28,6 +28,15 @@ export const BookCardDiv = styled.div`
   background-color: #ffc446;
   border-radius: 30px;
   margin: 20px 5%;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (min-width: 1201px) {
+    width: 27%;
+    margin: 40px 3%;
+  }
 `;
 
 export const ImgContainer = styled.div`

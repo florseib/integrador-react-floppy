@@ -6,8 +6,10 @@ import { StoreBookCard } from "../components/StoreBookCard";
 import { categoryList } from "../data/BookList";
 import Select from "react-select";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const StoreContainer = styled.div`
+width: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -17,6 +19,7 @@ box-sizing: content-box
 `;
 
 export const Store = () => {
+  const hasLoggedUser = useSelector((state) => state.user.loggedUser) != null;
   const [selectValue, setSelectValue] = useState(categoryList[0]);
   const [filteredBookList, setFilteredBookList] = useState([]);
 
@@ -35,13 +38,18 @@ export const Store = () => {
   };
 
   useEffect(() => {
-    // console.log(selectValue);
     filterBookList();
   }, [selectValue]);
 
   return (
     <StoreContainer>
       <h1>NUESTROS LIBROS</h1>
+      {!hasLoggedUser && (
+        <h3>
+          Por favor, ingresá a tu cuenta o registrate para poder agregar libros
+          a tu carrito
+        </h3>
+      )}
       <Select
         options={categoryList}
         defaultValue={categoryList[0]}
