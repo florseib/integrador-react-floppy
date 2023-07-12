@@ -3,6 +3,10 @@ import { Section } from "./Components";
 
 export const Hero = styled(Section)`
   padding: 20px 60px;
+
+  @media (max-width: 768px) {
+    padding: 10px 30px;
+  }
 `;
 
 export const HeroIntro = styled.div`
@@ -36,6 +40,10 @@ export const ImageDiv = styled.div`
   padding: 15px 1%;
   max-width: 50%;
   max-height: 450px;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+  }
 
   img {
     max-height: 100%;

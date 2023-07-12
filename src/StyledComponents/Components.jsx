@@ -39,6 +39,10 @@ export const Section = styled.section`
   padding: 20px 60px;
   margin: 20px 0px;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    width: 95%;
+  }
 `;
 
 export const Menu = styled.ul`
@@ -52,12 +56,17 @@ export const Menu = styled.ul`
   width: 80vw;
   height: calc(100vh - 8vh);
   background-color: rgb(255, 255, 90);
+  z-index: 10;
 
   margin: 0;
   list-style-type: none;
 
   & li {
     margin: 10px;
+  }
+
+  @media (max-width: 450px) {
+    display: flex;
   }
 `;
 

@@ -20,10 +20,10 @@ export const StoreBookCard = ({
 
   return (
     <BookCardDiv>
-      <ImgContainer>
+      <ImgContainer isLogged={loggedUser != null}>
         <img src={picture}></img>
       </ImgContainer>
-      <BookInfo>
+      <BookInfo isLogged={loggedUser != null}>
         <h2>{name}</h2>
         <p>Autor: {author}</p>
         <p>Precio: ${price}</p>

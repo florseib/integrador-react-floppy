@@ -16,6 +16,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export function Header() {
   const dispatch = useDispatch();
+  const [showMenu, toggleMenu] = useState(false);
   const loggedUser = useSelector((state) => state.user.loggedUser);
   const cartItems = useSelector((state) => state.cart.cartItems).filter(
     (x) => x.email === loggedUser?.email
@@ -38,27 +39,95 @@ export function Header() {
           ></img>
         </Link>
       </LogoContainer>
-      <Menu>
-        <LinkContainer>
-          <Link to="/store">TIENDA</Link>
-        </LinkContainer>
-        <LinkContainer>
-          <Link to="/cart">CARRITO ({cartNumber})</Link>
-        </LinkContainer>
-        <LinkContainer>
-          <Link to="/login">LOG IN</Link>
-        </LinkContainer>
-        <LinkContainer>
-          <Link to="/register">REGISTRARSE</Link>
-        </LinkContainer>
-      </Menu>
+      {showMenu && (
+        <Menu>
+          <LinkContainer>
+            <Link
+              onClick={() => {
+                toggleMenu(false);
+              }}
+              to="/store"
+            >
+              TIENDA
+            </Link>
+          </LinkContainer>
+          {loggedUser !== null && (
+            <LinkContainer>
+              <Link
+                onClick={() => {
+                  toggleMenu(false);
+                }}
+                to="/cart"
+              >
+                CARRITO ({cartNumber})
+              </Link>
+            </LinkContainer>
+          )}
+          {loggedUser !== null && (
+            <LinkContainer>
+              <Link>{loggedUser.email}</Link>
+            </LinkContainer>
+          )}
+          {loggedUser !== null && (
+            <LinkContainer>
+              <Link
+                to="/"
+                onClick={() => {
+                  toggleMenu(false);
+                  dispatch(logOut());
+                }}
+              >
+                LOG OUT
+              </Link>
+            </LinkContainer>
+          )}
+          {loggedUser === null && (
+            <LinkContainer>
+              <Link
+                onClick={() => {
+                  toggleMenu(false);
+                }}
+                to="/login"
+              >
+                LOG IN
+              </Link>
+            </LinkContainer>
+          )}
+          {loggedUser === null && (
+            <LinkContainer>
+              <Link
+                onClick={() => {
+                  toggleMenu(false);
+                }}
+                to="/register"
+              >
+                REGISTRARSE
+              </Link>
+            </LinkContainer>
+          )}
+        </Menu>
+      )}
       <AccountLinks>
         <LinkContainer>
-          <Link to="/store">TIENDA</Link>
+          <Link
+            onClick={() => {
+              toggleMenu(false);
+            }}
+            to="/store"
+          >
+            TIENDA
+          </Link>
         </LinkContainer>
         {loggedUser !== null && (
           <LinkContainer>
-            <Link to="/cart">CARRITO ({cartNumber})</Link>
+            <Link
+              onClick={() => {
+                toggleMenu(false);
+              }}
+              to="/cart"
+            >
+              CARRITO ({cartNumber})
+            </Link>
           </LinkContainer>
         )}
         {loggedUser !== null && (
@@ -80,16 +149,34 @@ export function Header() {
         )}
         {loggedUser === null && (
           <LinkContainer>
-            <Link to="/login">LOG IN</Link>
+            <Link
+              onClick={() => {
+                toggleMenu(false);
+              }}
+              to="/login"
+            >
+              LOG IN
+            </Link>
           </LinkContainer>
         )}
         {loggedUser === null && (
           <LinkContainer>
-            <Link to="/register">REGISTRARSE</Link>
+            <Link
+              onClick={() => {
+                toggleMenu(false);
+              }}
+              to="/register"
+            >
+              REGISTRARSE
+            </Link>
           </LinkContainer>
         )}
       </AccountLinks>
-      <MenuIcon>
+      <MenuIcon
+        onClick={() => {
+          toggleMenu(!showMenu);
+        }}
+      >
         <FontAwesomeIcon icon={faBars} />
       </MenuIcon>
     </HeaderDiv>

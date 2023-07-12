@@ -24,7 +24,7 @@ export const BookCardDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
-  height: 41rem;
+  height: ${(props) => (props.isLogged ? "41rem" : "30rem")};
   background-color: #ffc446;
   border-radius: 30px;
   margin: 20px 5%;
@@ -59,7 +59,7 @@ export const BookInfo = styled.div`
   flex-direction: column;
   justify-content: start;
   box-sizing: border-box;
-  height: 25%;
+  height: ${(props) => (props.isLogged ? "25%" : "40%")};
   width: 100%;
   padding: 0px 30px;
   font-weight: bold;
@@ -119,6 +119,7 @@ export const CardContent = styled.div`
 
   @media (max-width: 768px) {
     align-items: center;
+    margin-bottom: 1rem;
   }
 `;
 
