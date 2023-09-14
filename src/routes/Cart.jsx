@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BuyButtonContainer,
   CartContainer,
 } from "../StyledComponents/CartComponents";
 import { CartBookCard } from "../components/CartBookCard";
 import styled from "styled-components";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { emptyCart, purchaseAndEmptyCart } from "../redux-store/slice/CartSlice";
+import { purchase } from "../redux-store/utils/cartUtils";
 
 const CartDiv = styled.div`
   display: flex;
@@ -17,6 +19,9 @@ const CartDiv = styled.div`
 `;
 
 export const Cart = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const loggedUser = useSelector((state) => state.user.loggedUser);
   let cart = useSelector((state) => state.cart.cartItems).filter(
     (x) => x.email == loggedUser.email
@@ -38,7 +43,15 @@ export const Cart = () => {
       </CartContainer>
       {cart.length !== 0 && (
         <BuyButtonContainer>
-          <button type="submit" action="https://youtu.be/dQw4w9WgXcQ">
+          <button onClick={() => {
+            console.log(cart)
+            purchase(cart)
+            dispatch(
+              emptyCart()
+            );
+            navigate("/success")
+          }
+          } type="submit" action="https://youtu.be/dQw4w9WgXcQ">
             Confirmar compra
           </button>
         </BuyButtonContainer>

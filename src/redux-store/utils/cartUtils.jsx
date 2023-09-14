@@ -31,3 +31,13 @@ export const decreaseCartAmount = (cartItems, itemId) => {
 
   return [...cartItems];
 };
+
+export const purchase = (cartItems) => {
+  cartItems.forEach(element => {
+    confirmPurchase(element);
+  });
+};
+
+const confirmPurchase = (item) => {
+  console.log(item);
+}
