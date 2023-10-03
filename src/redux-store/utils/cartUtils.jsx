@@ -32,7 +32,7 @@ export const decreaseCartAmount = (cartItems, itemId) => {
   return [...cartItems];
 };
 
-export const purchase = (cartItems) => {
+export const purchase = (cartItems, purchaseInfo) => {
   cartItems.forEach(element => {
     confirmPurchase(element);
   });

@@ -20,7 +20,6 @@ const CartDiv = styled.div`
 
 export const Cart = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const loggedUser = useSelector((state) => state.user.loggedUser);
   let cart = useSelector((state) => state.cart.cartItems).filter(
@@ -44,12 +43,7 @@ export const Cart = () => {
       {cart.length !== 0 && (
         <BuyButtonContainer>
           <button onClick={() => {
-            console.log(cart)
-            purchase(cart)
-            dispatch(
-              emptyCart()
-            );
-            navigate("/success")
+            navigate("/purchase")
           }
           } type="submit" action="https://youtu.be/dQw4w9WgXcQ">
             Confirmar compra

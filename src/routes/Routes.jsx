@@ -11,6 +11,7 @@ import { Cart } from "./Cart";
 import { Login } from "./Login";
 import { Register } from "./Register";
 import { Success } from "./Success";
+import { Purchase } from "./Purchase";
 
 export const Routes = () => {
   return (
@@ -23,6 +24,7 @@ export const Routes = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/success" element={<Success />}></Route>
+        <Route path="/purchase" element={<Purchase />}></Route>
       </ReactRoutes>
       <Footer></Footer>
     </Router>
