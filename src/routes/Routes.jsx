@@ -12,6 +12,7 @@ import { Login } from "./Login";
 import { Register } from "./Register";
 import { Success } from "./Success";
 import { Purchase } from "./Purchase";
+import { Verify } from "./Verify";
 
 export const Routes = () => {
   return (
@@ -25,6 +26,7 @@ export const Routes = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/success" element={<Success />}></Route>
         <Route path="/purchase" element={<Purchase />}></Route>
+        <Route path="/verify" element={<Verify />}></Route>
       </ReactRoutes>
       <Footer></Footer>
     </Router>

@@ -12,10 +12,9 @@ import { bookList } from "./data/BookList";
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // dispatch(loadCart(JSON.parse(localStorage.getItem("cart")) || []));
-    dispatch(loadBooks(bookList));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadBooks(bookList));
+  // }, []);
 
   return (
     <>

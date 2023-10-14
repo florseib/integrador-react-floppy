@@ -8,16 +8,10 @@ import {
 import { Input } from "../components/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../redux-store/slice/UserSlice";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Link, LinkVerify } from "../StyledComponents/Components";
-import styled from "styled-components";
 
-const Span = styled.span`
-  margin-top: 1rem
-`
-
-export const Login = () => {
+export const Verify = () => {
   const hasLoggedUser = useSelector((state) => state.user.loggedUser) != null;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,21 +21,20 @@ export const Login = () => {
       .trim()
       .email("No es una dirección de email válida")
       .required("Requerido"),
-    // password: Yup.string().trim().required("Required"),
-    password: Yup.string().trim().required("Requerido"),
+    codigo: Yup.string().trim().required("Requerido"),
   });
 
   const { values, handleChange, handleBlur, handleSubmit, errors, touched } =
     useFormik({
       initialValues: {
         email: "",
-        password: "",
+        codigo: "",
       },
       onSubmit(values, { resetForm }) {
         dispatch(
           logIn({
             email: values.email,
-            password: values.password,
+            codigo: values.codigo,
           })
         );
         resetForm();
@@ -54,7 +47,7 @@ export const Login = () => {
     <Navigate to={"/"} />
   ) : (
     <LoginForm>
-      <h2>Ingrese su información de usuario</h2>
+      <h2>Ingrese su email y su código de validación</h2>
       <Form>
         <div style={{ width: "80%" }}>
           <Input
@@ -71,13 +64,13 @@ export const Login = () => {
           <Input
             handleChange={handleChange}
             handleBlur={handleBlur}
-            value={values.password}
-            label="Contraseña"
-            type="password"
-            name="password"
+            value={values.codigo}
+            label="Código"
+            type="codigo"
+            name="codigo"
           />
-          {errors.password && touched.password && (
-            <Error>{errors.password}</Error>
+          {errors.codigo && touched.codigo && (
+            <Error>{errors.codigo}</Error>
           )}
         </div>
         <AccountButton
@@ -89,7 +82,6 @@ export const Login = () => {
           value={"Enviar"}
         />
       </Form>
-      <Span>Necesitás validar tu cuenta? Hacé click <LinkVerify to="/verify">acá</LinkVerify></Span>
     </LoginForm>
   );
 };

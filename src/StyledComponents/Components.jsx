@@ -116,3 +116,7 @@ export const Link = styled(NavLink)`
   text-decoration: none;
   color: inherit;
 `;
+
+export const LinkVerify = styled(NavLink)`
+  color: blue;
+`

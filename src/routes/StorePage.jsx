@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { CategorySelect } from "../components/CategorySelect";
 import { BookContainer } from "../StyledComponents/BookCardComponents";
-import { bookList } from "../data/BookList";
 import { StoreBookCard } from "../components/StoreBookCard";
-import { categoryList } from "../data/BookList";
 import Select from "react-select";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getBooks, getFilteredBooks, getCategories } from "../axios/axios-books";
 
 const StoreContainer = styled.div`
 width: 100%;
@@ -19,26 +18,25 @@ box-sizing: content-box
 `;
 
 export const Store = () => {
+  const dispatch = useDispatch();
   const hasLoggedUser = useSelector((state) => state.user.loggedUser) != null;
-  const [selectValue, setSelectValue] = useState(categoryList[0]);
-  const [filteredBookList, setFilteredBookList] = useState([]);
-
-  const filterBookList = () => {
-    // if (selectValue.value === 'Todos') return bookList;
-
-    // return bookList.filter((x) => x.category === selectValue.value);
-
-    setFilteredBookList([]);
-
-    bookList.forEach((book) => {
-      if (selectValue.value === "Todos" || selectValue.value === book.category)
-        // filteredBookList.push(book);
-        setFilteredBookList((oldArray) => [...oldArray, book]);
-    });
-  };
+  const categoryList = useSelector(state => state.category)
+  const [selectValue, setSelectValue] = useState();
+  const bookList = useSelector(state => state.bookList)
 
   useEffect(() => {
-    filterBookList();
+    getCategories(dispatch).then(result => {
+      setSelectValue(result[0])
+    })
+  }, [])
+
+  useEffect(() => {
+    // if (!(bookList && bookList.length > 0)) {
+      if (!selectValue || selectValue.value === "TODOS")
+        getBooks(dispatch)
+      else
+        getFilteredBooks(dispatch, selectValue.value)
+    // }
   }, [selectValue]);
 
   return (
@@ -56,8 +54,8 @@ export const Store = () => {
         onChange={(value) => setSelectValue(value)}
       ></Select>
       <BookContainer>
-        {filteredBookList.map((book) => {
-          return <StoreBookCard {...book} key={book.id}></StoreBookCard>;
+        {bookList.map((book) => {
+          return <StoreBookCard {...book} key={book._id}></StoreBookCard>;
         })}
       </BookContainer>
     </StoreContainer>

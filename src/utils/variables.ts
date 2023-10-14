@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://integrador-backend-floppy.vercel.app/'

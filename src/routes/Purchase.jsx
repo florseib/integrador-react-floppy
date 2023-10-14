@@ -51,7 +51,6 @@ export const Purchase = () => {
         codigoPostal: ""
       },
       onSubmit(values, { resetForm }) {
-        console.log("a")
         resetForm();
         const purchaseInfo = {
           nombre: values.nombre,
