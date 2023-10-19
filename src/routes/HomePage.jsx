@@ -21,20 +21,20 @@ export const HomePage = () => {
       <HeroImages>
         <h2>Imágenes</h2>
         <ImageDiv>
-          <img src="./images/foto_1.jpg" alt="Mujer leyendo libro"></img>
+          <img src="https://res.cloudinary.com/durzkwbnd/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697757078/foto_1_jnpnxd.jpg" alt="Mujer leyendo libro"></img>
         </ImageDiv>
         <ImageDiv>
-          <img src="./images/foto_2.jpg" alt="Fotos de libros"></img>
+          <img src="https://res.cloudinary.com/durzkwbnd/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697757077/foto_2_jhphoj.jpg" alt="Fotos de libros"></img>
         </ImageDiv>
         <ImageDiv>
-          <img src="./images/foto_3.jpg" alt="Niño buscando libros"></img>
+          <img src="https://res.cloudinary.com/durzkwbnd/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697757077/foto_3_kn6oee.jpg" alt="Niño buscando libros"></img>
         </ImageDiv>
         <ImageDiv>
-          <img src="./images/foto_4.jpg" alt="Estantes de librería"></img>
+          <img src="https://res.cloudinary.com/durzkwbnd/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697757078/foto_4_b1vkkw.jpg" alt="Estantes de librería"></img>
         </ImageDiv>
         <FotoGato>
           <img
-            src="./images/gatito.jpg"
+            src="https://res.cloudinary.com/durzkwbnd/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697757077/gatito_lnqh6s.jpg"
             alt="Foto del gato de la biblioteca"
           ></img>
         </FotoGato>

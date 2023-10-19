@@ -34,7 +34,7 @@ export function Header() {
         {/* TODO: Este href hay que modificarlo para que funcione con routeo (como todos los href) */}
         <Link to="/">
           <img
-            src="../../images/logo_trans.png"
+            src="https://res.cloudinary.com/durzkwbnd/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697757250/logo_trans_cligax.jpg"
             alt="Logo de la librería"
           ></img>
         </Link>
