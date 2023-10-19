@@ -4,6 +4,8 @@ import {
   Error,
   Form,
   LoginForm,
+  AccountSpan,
+  ErrorSpan,
 } from "../StyledComponents/AccountComponents";
 import { Input } from "../components/Input";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,13 +14,12 @@ import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Link, LinkVerify } from "../StyledComponents/Components";
 import styled from "styled-components";
-
-const Span = styled.span`
-  margin-top: 1rem
-`
+import { PostLogin } from "../axios/axios-auth";
+import { useState } from "react";
 
 export const Login = () => {
   const hasLoggedUser = useSelector((state) => state.user.loggedUser) != null;
+  const [errorList, setErrorList] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -38,14 +39,22 @@ export const Login = () => {
         password: "",
       },
       onSubmit(values, { resetForm }) {
-        dispatch(
-          logIn({
-            email: values.email,
-            password: values.password,
-          })
-        );
-        resetForm();
-        navigate("/");
+        PostLogin(dispatch, {
+          email: values.email,
+          password: values.password,
+        }).then((data) => {
+          if (data.status == 201) {
+            resetForm();
+            navigate("/");
+          }
+          else {
+            if (data.data.errors && data.data.errors.length != 0)
+              setErrorList(data.data.errors.map(error => error.msg));
+            else
+              setErrorList([data.data.msg]);
+            console.log(errorList);
+          }
+        })
       },
       validationSchema,
     });
@@ -89,7 +98,13 @@ export const Login = () => {
           value={"Enviar"}
         />
       </Form>
-      <Span>Necesitás validar tu cuenta? Hacé click <LinkVerify to="/verify">acá</LinkVerify></Span>
+      <AccountSpan>Necesitás validar tu cuenta? Hacé click <LinkVerify to="/verify">acá</LinkVerify></AccountSpan>
+      {errorList.length != 0 && (errorList.map((error) => {
+        return <ErrorSpan style={{ "margin-bottom": "0px" }}>
+          {error}
+        </ErrorSpan>
+      })
+      )}
     </LoginForm>
   );
 };

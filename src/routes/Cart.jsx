@@ -34,7 +34,7 @@ export const Cart = () => {
       <CartContainer>
         {cart.length !== 0 ? (
           cart.map((item) => {
-            return <CartBookCard {...item} key={item.id} />;
+            return <CartBookCard {...item} key={item._id} />;
           })
         ) : (
           <p>Tu carrito se encuentra vacío actualmente.</p>

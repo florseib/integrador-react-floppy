@@ -13,7 +13,7 @@ export const StoreBookCard = ({
   price,
   category,
   picture,
-  id,
+  _id,
 }) => {
   const loggedUser = useSelector((state) => state.user.loggedUser);
   const dispatch = useDispatch();
@@ -32,16 +32,11 @@ export const StoreBookCard = ({
       {loggedUser && (
         <ButtonContainer>
           <button
-            value={id}
+            value={_id}
             onClick={() =>
               dispatch(
                 addToCart({
-                  name,
-                  author,
-                  price,
-                  category,
-                  picture,
-                  id,
+                  _id,
                   email: loggedUser.email,
                 })
               )

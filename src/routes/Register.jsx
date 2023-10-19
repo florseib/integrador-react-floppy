@@ -3,6 +3,7 @@ import {
   AccountButton,
   AccountForm,
   Error,
+  ErrorSpan,
   Form,
   RegisterForm,
 } from "../StyledComponents/AccountComponents";
@@ -12,11 +13,14 @@ import { createUser } from "../redux-store/slice/UserSlice";
 import { Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
+import {PostRegister} from "../axios/axios-auth";
 
 export const Register = () => {
   const hasLoggedUser = useSelector((state) => state.user.loggedUser) != null;
   const userList = useSelector((state) => state.user.userList);
   const [userExists, setUserExists] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [errorList, setErrorList] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,7 +29,6 @@ export const Register = () => {
       .trim()
       .email("No es una dirección de email válida")
       .required("Requerido"),
-    // password: Yup.string().trim().required("Required"),
     password: Yup.string()
       .trim()
       .min(6, "La contraseña debe tener un mínimo de 6 caracteres")
@@ -47,31 +50,23 @@ export const Register = () => {
         if (userList.find((x) => x.email === values.email)) {
           setUserExists(true);
         } else {
-          dispatch(
-            createUser({
-              email: values.email,
-              password: values.password,
-              repeatPassword: values.repeatPassword,
-            })
-          );
-          resetForm();
-          navigate("/");
+          PostRegister({
+            email: values.email,
+            password: values.password,
+            repeatPassword: values.repeatPassword,
+          }).then((data) => {
+            if(data.status == 201) {
+              resetForm();
+              setShowSuccessMessage(true);
+            }
+            else {
+              setErrorList(data.data.errors.map(error => error.msg));
+              console.log(errorList);
+            }
+          })
         }
       },
       validationSchema,
-      // validate: (values) => {
-      //   const errors = {};
-      //   if (!values.email) errors.email = "Required";
-
-      //   if (!values.password) errors.password = "Required";
-
-      //   // if (!values.repeatPassword) errors.repeatPassword = "Required";
-
-      //   if (values.password !== values.repeatPassword)
-      //     errors.repeatPassword = "Passwords do not match";
-
-      //   return errors;
-      // },
     });
 
   return hasLoggedUser ? (
@@ -135,6 +130,13 @@ export const Register = () => {
           </Error>
         )}
       </Form>
+      {showSuccessMessage ? <Span>Usuario registrado correctamente</Span> : ""}
+      {errorList.length != 0 && (errorList.map((error) => {
+        return <ErrorSpan style={{ "margin-bottom": "0px" }}>
+          {error}
+        </ErrorSpan>
+      })
+      )}
     </RegisterForm>
   );
 };

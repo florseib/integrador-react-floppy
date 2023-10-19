@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import {
   AccountButton,
   Error,
+  ErrorSpan,
   Form,
   LoginForm,
 } from "../StyledComponents/AccountComponents";
@@ -12,12 +13,15 @@ import { Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { purchase } from "../redux-store/utils/cartUtils";
 import { emptyCart } from "../redux-store/slice/CartSlice";
+import { ConfirmarCompra } from "../axios/axios-cart";
+import { useState } from "react";
 
 export const Purchase = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const loggedUser = useSelector((state) => state.user.loggedUser);
+  const [errorList, setErrorList] = useState([]); 
   let cart = useSelector((state) => state.cart.cartItems).filter(
     (x) => x.email == loggedUser.email
   );
@@ -53,17 +57,26 @@ export const Purchase = () => {
       onSubmit(values, { resetForm }) {
         resetForm();
         const purchaseInfo = {
-          nombre: values.nombre,
-          telefono: values.telefono,
-          ciudad: values.ciudad,
-          direccion: values.direccion,
-          codigoPostal: values.codigoPostal
+          items: cart.map((item) => { return { libro: item._id, cantidad: item.quantity } }),
+          detallesEnvio: {
+            nombre: values.nombre,
+            telefono: values.telefono,
+            ciudad: values.ciudad,
+            direccion: values.direccion,
+            codigoPostal: values.codigoPostal
+          }
         }
-        purchase(cart, purchaseInfo);
-        dispatch(
-          emptyCart()
-        );
-        navigate("/success");
+        ConfirmarCompra(purchaseInfo, loggedUser.token).then((data) => {
+          if(data.status == 201) {
+            dispatch(
+              emptyCart()
+            );
+            navigate("/success");
+          }
+          else {
+            setErrorList(data.data.errors.map(error => error.msg));
+          }
+        });
       },
       validationSchema,
     });
@@ -135,5 +148,11 @@ export const Purchase = () => {
           value={"Enviar"}
         />
       </Form>
+      {errorList.length != 0 && (errorList.map((error) => {
+        return <ErrorSpan style={{ "margin-bottom": "0px" }}>
+          {error}
+        </ErrorSpan>
+      })
+      )}
     </LoginForm>
 };

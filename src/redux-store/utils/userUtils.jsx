@@ -14,22 +14,13 @@ export const addUserToList = (state, newUser) => {
         email: newUser.email,
       },
     };
-    //   return cartItems.map((item) => {
-    //     return item.id === existingProduct.id
-    //       ? { ...item, quantity: item.quantity - 1 }
-    //       : item;
-    //   });
   } else {
     return { ...state };
   }
 };
 
-export const logUser = (userList, user) => {
-  const existingUser = userList.find((x) => {
-    return x.email === user.email && x.password === user.password;
-  });
-
-  if (existingUser) return { email: user.email };
+export const logUser = (user) => {
+  return { email: user.email, token: user.token };
 
   return null;
 };

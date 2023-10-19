@@ -13,7 +13,7 @@ export const userSlice = createSlice({
     logIn: (state, action) => {
       return {
         ...state,
-        loggedUser: logUser(state.userList, action.payload),
+        loggedUser: logUser(action.payload),
       };
     },
     createUser: (state, action) => {

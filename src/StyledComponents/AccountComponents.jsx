@@ -95,3 +95,15 @@ export const Error = styled.p`
   color: #234099;
   margin: 0 0 1rem;
 `;
+
+export const AccountSpan = styled.div`
+  margin-top: 1rem
+`
+
+export const BoldedSpan = styled(AccountSpan)`
+  font-weight: bold;
+`
+
+export const ErrorSpan = styled(BoldedSpan)`
+  color: #234099;
+`

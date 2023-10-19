@@ -19,6 +19,15 @@ export const getFilteredBooks = async (dispatch, categoria: string) => {
     }
 }
 
+export const getBookById = async (id: string) => {
+    const data = await axios.get(`${BASE_URL}libros/libro/${id}`);
+
+    if (data) {
+        return data.data.libro;
+    }
+
+}
+
 export const getCategories = async (dispatch) => {
     const data = await axios.get(`${BASE_URL}libros/categorias`);
 

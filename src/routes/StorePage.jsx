@@ -48,11 +48,11 @@ export const Store = () => {
           a tu carrito
         </h3>
       )}
-      <Select
+      {categoryList && categoryList.length != 0 ? <Select
         options={categoryList}
         defaultValue={categoryList[0]}
         onChange={(value) => setSelectValue(value)}
-      ></Select>
+      ></Select> : ""}
       <BookContainer>
         {bookList.map((book) => {
           return <StoreBookCard {...book} key={book._id}></StoreBookCard>;
