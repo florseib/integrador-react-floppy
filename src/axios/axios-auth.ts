@@ -24,7 +24,7 @@ export const PostLogin = async (dispatch, userData) => {
         return error.response;
     });
 
-    if (data.status == 400)
+    if (data.status == 201)
         dispatch(logIn({
             email: data.data.usuario.email,
             id: data.data.usuario._id,
