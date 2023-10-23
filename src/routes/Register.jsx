@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import {
   AccountButton,
   AccountForm,
+  AccountSpan,
   Error,
   ErrorSpan,
   Form,
@@ -130,7 +131,7 @@ export const Register = () => {
           </Error>
         )}
       </Form>
-      {showSuccessMessage ? <Span>Usuario registrado correctamente</Span> : ""}
+      {showSuccessMessage ? <AccountSpan>Usuario registrado correctamente</AccountSpan> : ""}
       {errorList.length != 0 && (errorList.map((error) => {
         return <ErrorSpan style={{ "margin-bottom": "0px" }}>
           {error}

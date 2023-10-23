@@ -12,3 +12,17 @@ export const ConfirmarCompra = async (deliveryData, token) => {
 
     return data;
 }
+
+export const GetOrdenes = async (loggedUser) => {
+    const data = await axios.get(`${BASE_URL}ordenes`, {
+        headers: {
+            'x-token': loggedUser.token
+        }
+    }).catch((error) => {
+        return error.response;
+    });
+
+    // setState(data.data);
+
+    return data;
+}

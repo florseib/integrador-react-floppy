@@ -52,7 +52,6 @@ export const Login = () => {
               setErrorList(data.data.errors.map(error => error.msg));
             else
               setErrorList([data.data.msg]);
-            console.log(errorList);
           }
         })
       },
