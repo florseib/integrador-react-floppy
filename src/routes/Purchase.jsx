@@ -8,7 +8,7 @@ import {
 } from "../StyledComponents/AccountComponents";
 import { Input } from "../components/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "../redux-store/slice/UserSlice";
+import { logIn, logOut } from "../redux-store/slice/UserSlice";
 import { Navigate, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { purchase } from "../redux-store/utils/cartUtils";
@@ -67,14 +67,18 @@ export const Purchase = () => {
           }
         }
         ConfirmarCompra(purchaseInfo, loggedUser.token).then((data) => {
-          if(data.status == 201) {
-            dispatch(
-              emptyCart()
-            );
+          if (data.status == 201) {
+            dispatch(emptyCart());
             navigate("/success");
           }
           else {
-            setErrorList(data.data.errors.map(error => error.msg));
+            if (data.status == 401) {
+              alert("Su sesión ha caducado, por favor vuelva a ingresar.")
+              dispatch(logOut());
+              navigate("/");
+            }
+            else
+              setErrorList(data.data.errors.map(error => error.msg));
           }
         });
       },

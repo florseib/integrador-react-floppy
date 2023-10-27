@@ -86,7 +86,6 @@ export const CartCard = styled.div`
   flex-direction: row;
   box-sizing: border-box;
   width: 95%;
-  /* height: 20rem; */
   background-color: #ffc446;
   border-radius: 30px;
   margin: 20px;
@@ -109,6 +108,10 @@ export const CartCard = styled.div`
     width: 80%;
   }
 `;
+
+export const OrderCardContainer = styled(CartCard)`
+  height: auto;
+`
 
 export const CardContent = styled.div`
   display: flex;

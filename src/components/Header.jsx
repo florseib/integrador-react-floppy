@@ -132,7 +132,10 @@ export function Header() {
         )}
         {loggedUser !== null && (
           <LinkContainer>
-            <Link>{loggedUser.email}</Link>
+            <Link onClick={() => {
+                toggleMenu(false);
+              }}
+              to="/orders">{loggedUser.email}</Link>
           </LinkContainer>
         )}
         {loggedUser !== null && (
