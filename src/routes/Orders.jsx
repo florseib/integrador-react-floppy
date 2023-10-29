@@ -30,7 +30,7 @@ export const Orders = () => {
         if (orders.length == 0)
           setNoOrders(true)
       }
-      else if (result.status == 201) {
+      else if (result.status == 401) {
         alert("Su sesión ha caducado, por favor vuelva a ingresar.")
         dispatch(logOut());
         navigate("/");
